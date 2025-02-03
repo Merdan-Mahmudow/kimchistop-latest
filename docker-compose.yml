@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+  kimchibot:
+    image: kimchistop-kimchibot # Your app service
+    build:
+      context: .  # Use the current directory as the build context
+      dockerfile: Dockerfile # Name of your Dockerfile
+    ports:
+      - "8000:8001" # Expose your app's port
+    environment:
+      - REDIS_HOST=redis # Connect to Redis using the service name
+      - REDIS_PORT=6379 
+      - DB_HOST=kimchistop.ru
+      - DB_PORT=5432
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASS=kimchistop
+      - BOT_TOKEN=7373872216:AAHIYfyNjJ2c1d6zqj60YzP_BBvtU0QvFiU
+      - ADMIN_CHAT_ID=1372814991 6035406614 # 1532870318 251173063
+      - CLIENT_BOT_TOKEN=6937107637:AAFarU8swL-mp7oLC0sMz44A7-F3q0QuD4Y
+    restart: always
+    depends_on:
+      - redis # Ensure Redis starts before your application
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
+    restart: always
+
+

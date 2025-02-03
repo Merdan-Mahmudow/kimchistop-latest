@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Оплата заказа</title>
+
+  <!--Подключение библиотеки для инициализации виджета ЮKassa-->
+  <!-- <script src="https://yookassa.ru/checkout-widget/v1/checkout-widget.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+  <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+ </head>
+ <style>
+  .payment{
+    width: 100vw;
+    height: 100vh;
+  }
+ </style>
+ <body>
+  <!--Контейнер, в котором будет отображаться платежная форма-->
+  <div id="payment-form"></div>
+  <!-- <iframe class="payment" src="" frameborder="0" target="_blank" rel="noopener noreferrer"></iframe> -->
+  <script>
+    const tg = window.Telegram.WebApp
+
+      console.log(tg)
+      tg.openLink("https://ecom.alfabank.ru/standalone/pay/?depositFlag=1&logo=0&standalone_name=i-kimchistop65-api&currency%5B%5D=RUB&def=%7B%22name%22%3A%22amount%22%2C%22value%22%3A%22{{amount}}%22%2C%22title%22%3A%22%D0%9E%D0%BF%D0%BB%D0%B0%D1%82%D0%B0+%D0%B7%D0%B0%D0%BA%D0%B0%D0%B7%D0%B0+{{number}}%22%7D&showcase=constructor&language=ru", {"try_instant_view": true, "try_browser": "chrome"})
+
+  </script>
+ </body>
+</html>
