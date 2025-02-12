@@ -65,7 +65,7 @@ class RedisService:
             cart = json.loads(self.redis.get(cart_key) or '{"items": []}')
             
             for item in cart["items"]:
-                if item[items.product_id]:
+                if item["product_id"] == items.product_id:
                     if items.quantity > 0:
                         item["quantity"] = items.quantity
                     else:
@@ -78,11 +78,11 @@ class RedisService:
             logger.error(f"Ошибка обработки данных: {e}")
             return {"items": []}
     
-    async def delete_from_cart(self, product_id: int):
+    async def delete_from_cart(self, product_id: int, user_id: str):
         try:
-            cart_key = f"cart:{product_id}"
+            cart_key = f"cart:{user_id}"
             cart = json.loads(self.redis.get(cart_key) or '{"items": []}')
-            cart["items"] = [item for item in cart["items"]]
+            cart["items"] = [item for item in cart["items"] if item["product_id"] != product_id]
             self.redis.set(cart_key, json.dumps(cart))
             return cart
         except Exception as e:

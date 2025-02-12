@@ -36,9 +36,9 @@ async def update_item_from_cart(cart: CartRedis):
         raise HTTPException(status_code=500, detail={"error": f"{e}"})
     
 @cart_router.delete("/delete", summary="Удаление товара из корзины")
-async def update_item_from_cart(cart: CartRedis):
+async def update_item_from_cart(product_id: int, user_id: int):
     try:
-        items = await redis.delete_from_cart(cart)
+        items = await redis.delete_from_cart(product_id=product_id, user_id=user_id)
         return items
     except Exception as e:
         logger.error(f"Ошибка обработки данных: {e}")
