@@ -1,11 +1,10 @@
-import asyncio
-from typing import Optional, List
+from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import delete, insert, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
-from pydantic import BaseModel
 from auth.database import get_async_session
 from models.models import Order, User, Food
+from dto.dto import User as UserDTO
 
 userRouter = APIRouter()
 
@@ -14,17 +13,6 @@ user_state = {}
 
 def is_null(value):
     return value is None
-
-# DTO Model for User
-class UserDTO(BaseModel):
-    name: Optional[str] = None
-    tel: Optional[str] = None
-    address: Optional[str] = None
-    orders: Optional[str] = None
-    nickname: Optional[str] = None
-    chatID: Optional[str] = None
-    favourites: List[int] = []
-    role: Optional[str] = None
 
 class UserCRUD:
     @staticmethod

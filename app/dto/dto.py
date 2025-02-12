@@ -71,3 +71,7 @@ class FoodsRequest(BaseModel):
     noStopList: Optional[bool] = True
 
 
+class CartRedis(BaseModel):
+    user_id: int
+    product_id: int
+    quantity: int

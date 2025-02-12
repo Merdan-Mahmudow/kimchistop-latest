@@ -8,7 +8,6 @@ from typing import Optional, List, Dict, Any
 from aiohttp import ClientSession, ClientTimeout
 import requests
 from PIL import Image
-
 from services.redis_service import RedisService
 from dto.dto import AuthorizationData, FoodsRequest, TokenValidation
 from exceptions.sbis import SBISAuthError, SBISRequestError
@@ -201,14 +200,11 @@ class SBISBusinessLogic:
             token
         )
 
-        downloaded_count = 0
-        max_downloads = 10
         tasks = []
 
         async def process_item(item: Dict) -> Optional[Dict]:
-            nonlocal downloaded_count
+            # nonlocal downloaded_count
             if ('images' in item and item['images'] and
-                downloaded_count < max_downloads and
                     item.get("hierarchicalParent") != 2382):
 
                 image_url = item['images'][0]
@@ -216,7 +212,7 @@ class SBISBusinessLogic:
                 photo_url = self.sbis.decode_base64_param(encoded_param)
 
                 if photo_url:
-                    downloaded_count += 1
+                    # downloaded_count += 1
                     return {
                         "id": item["hierarchicalId"],
                         "name": item["name"],
@@ -228,8 +224,8 @@ class SBISBusinessLogic:
             return None
 
         for item in foods['nomenclatures']:
-            if downloaded_count >= max_downloads:
-                break
+            # if downloaded_count >= max_downloads:
+                # break
             tasks.append(process_item(item))
 
         results = await asyncio.gather(*tasks)

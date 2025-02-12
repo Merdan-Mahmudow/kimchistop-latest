@@ -10,6 +10,7 @@ from routers.order import orderRouter
 from routers.payment import payment_router
 from routers.promocode import promoRouter
 from routers.sbis import sbisRouter
+from routers.cart import cart_router
 
 import uuid
 
@@ -38,3 +39,4 @@ router.include_router(orderRouter, prefix='/order', tags=["Заказы"])
 router.include_router(payment_router, prefix='/payments', tags=["Оплата"])
 router.include_router(promoRouter, prefix='/promocode', tags=["Промокоды"])
 router.include_router(sbisRouter, prefix='/sbis', tags=["SBIS"])
+router.include_router(cart_router, prefix="/cart", tags=["Корзина"])

@@ -36,7 +36,7 @@ async def bott():
     await dp.start_polling(bot)
     
 async def fastapi():
-    config = uvicorn.Config("app.app:app", host="127.0.0.1", port=8001, log_level="info", reload=True, ws="websockets")
+    config = uvicorn.Config("app.app:app", host="0.0.0.0", port=8000, log_level="info", reload=True, ws="websockets")
     server = uvicorn.Server(config)
     await server.serve()
     print("FastAPI started")
@@ -56,4 +56,4 @@ async def update_products_periodic():
 
 if __name__ == "__main__":
     asyncio.run(startup_event())
-    uvicorn.run("app:app", host="127.0.0.1", port=8001, log_level="info")
+    uvicorn.run("app:app", host="0.0.0.0", port=8000, log_level="info")
